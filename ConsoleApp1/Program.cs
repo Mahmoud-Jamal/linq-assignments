@@ -10,13 +10,13 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+            var products = Source.ProductList;
+            var customers = Source.CustomerList;
+
 
             #region question1
 
-            //var products = Source.ProductList;
-
-            //var result = products.Where(p => p.Category == "Seafood")
-            //                     .Select(p => new { p.ProductName, p.UnitPrice });
+            //var result = products.OrderByDescending(p => p.UnitPrice).Take(3);
 
             //foreach (var pro in result)
             //{
@@ -28,9 +28,7 @@ namespace ConsoleApp1
 
             #region question2
 
-            //var products = Source.ProductList;
-
-            //var result = products.Select(p => p.ProductName);
+            //var result = products.Skip(5).Take(5);
 
             //foreach (var pro in result)
             //{
@@ -42,9 +40,8 @@ namespace ConsoleApp1
 
             #region question3
 
-            //var products = Source.ProductList;
-
-            //var result = products.OrderBy(p => p.UnitPrice).Select(p => new { p.ProductName, p.UnitPrice });
+            //var result = products.OrderBy(p => p.UnitPrice)
+            //                     .TakeWhile(p => p.UnitPrice < 25);
 
             //foreach (var pro in result)
             //{
@@ -56,46 +53,37 @@ namespace ConsoleApp1
 
             #region question4
 
-            //var products = Source.ProductList;
+            //var result = products.Where(p => p.Category == "Seafood")
+            //                     .All(p => p.UnitsInStock > 0);
 
-            //var result = products.Where(p => p.UnitPrice >= 10 && p.UnitPrice <= 30);
-
-            //foreach (var pro in result)
-            //{
-            //    Console.WriteLine(pro);
-            //}
+            //Console.WriteLine(result);
 
             #endregion
 
 
             #region question5
 
-            //var products = Source.ProductList;
+            //int[] ids = { 3, 9, 13, 18 };
 
-            //var result = products.Where(p => p.UnitsInStock > 0 && p.Category == "Spices & Condiments");
+            //var result = ids.Contains(9);
 
-            //foreach (var pro in result)
-            //{
-            //    Console.WriteLine(pro);
-            //}
+            //Console.WriteLine(result);
 
             #endregion
 
 
             #region question6
 
-            //var products = Source.ProductList;
+            //var result = products.GroupBy(p => p.Category)
+            //                     .Select(g => new
+            //                     {
+            //                         Category = g.Key,
+            //                         Count = g.Count()
+            //                     });
 
-            //var result = products.Select(p => new
+            //foreach (var group in result)
             //{
-            //    Name = p.ProductName,
-            //    Price = p.UnitPrice,
-            //    StockStatus = p.UnitsInStock > 0 ? "Available" : "Out of Stock"
-            //});
-
-            //foreach (var pro in result)
-            //{
-            //    Console.WriteLine(pro);
+            //    Console.WriteLine(group);
             //}
 
             #endregion
@@ -103,17 +91,21 @@ namespace ConsoleApp1
 
             #region question7
 
-            //var products = Source.ProductList;
+            //var result = products.GroupBy(p => p.Category)
+            //                     .Select(g => new
+            //                     {
+            //                         Category = g.Key,
+            //                         ProductNames = g.Select(p => p.ProductName)
+            //                     });
 
-            //var result = products.Select((p, index) => new
+            //foreach (var group in result)
             //{
-            //    Position = index + 1,
-            //    p.ProductName
-            //});
+            //    Console.WriteLine(group.Category);
 
-            //foreach (var pro in result)
-            //{
-            //    Console.WriteLine($"{pro.Position}: {pro.ProductName}");
+            //    foreach (var name in group.ProductNames)
+            //    {
+            //        Console.WriteLine(name);
+            //    }
             //}
 
             #endregion
@@ -121,13 +113,13 @@ namespace ConsoleApp1
 
             #region question8
 
-            //var products = Source.ProductList;
+            //var result = products.GroupBy(p => p.Category)
+            //                     .Where(g => g.Count() > 3)
+            //                     .Select(g => g.Key);
 
-            //var result = products.OrderBy(p => p.Category).ThenByDescending(p => p.UnitPrice);
-
-            //foreach (var pro in result)
+            //foreach (var category in result)
             //{
-            //    Console.WriteLine(pro);
+            //    Console.WriteLine(category);
             //}
 
             #endregion
@@ -135,19 +127,20 @@ namespace ConsoleApp1
 
             #region question9
 
-            //var products = Source.ProductList;
+            //var result = from customer in customers
+            //             group customer by customer.Country into countryGroup
+            //             select new
+            //             {
+            //                 Country = countryGroup.Key,
+            //                 Count = countryGroup.Count(),
+            //                 TotalOrderValue = countryGroup.Sum(c =>
+            //                     c.Orders.Sum(o => o.OrderDetails.Sum(od =>
+            //                         od.UnitPrice * od.Quantity)))
+            //             };
 
-            //var result = products.Where(p => p.Category == "Beverages")
-            //                     .OrderByDescending(p => p.UnitsInStock)
-            //                     .Select(p => new
-            //                     {
-            //                         p.ProductName,
-            //                         p.UnitsInStock
-            //                     });
-
-            //foreach (var pro in result)
+            //foreach (var country in result)
             //{
-            //    Console.WriteLine(pro);
+            //    Console.WriteLine(country);
             //}
 
             #endregion
@@ -155,54 +148,32 @@ namespace ConsoleApp1
 
             #region question10
 
-            //var customers = Source.CustomerList;
+            //var result = products.Sum(p => p.UnitsInStock);
 
-            //var result =
-            // from c in customers
-            // from o in c.Orders
-            // where o.OrderDate.Year >= 1997
-            // select new
-            // {
-            //     c.CustomerID,
-            //     o.OrderDate
-            // };
-
-            //foreach (var o in result) {
-            //    Console.WriteLine(o);
-            //}
-
+            //Console.WriteLine(result);
 
             #endregion
 
 
             #region question11
 
-            //var products = Source.ProductList;
+            //var cheapest = products.Min(p => p.UnitPrice);
+            //var mostExpensive = products.Max(p => p.UnitPrice);
 
-            //var result = products.Select((p, index) => new
-            //{
-            //    Position = index + 1,
-            //    p.ProductName
-            //});
-
-            //foreach (var pro in result)
-            //{
-            //    Console.WriteLine($"{pro.Position}: {pro.ProductName}");
-            //}
+            //Console.WriteLine($"Cheapest Price: {cheapest}");
+            //Console.WriteLine($"Most Expensive Price: {mostExpensive}");
 
             #endregion
 
 
             #region question12
 
-            //string[] Arr = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" };
+            //var result = products.Select(p => p.Category)
+            //                     .Distinct();
 
-            //var result = Arr.OrderBy(word => word.Length)
-            //                .ThenBy(word => word, StringComparer.OrdinalIgnoreCase);
-
-            //foreach (var word in result)
+            //foreach (var category in result)
             //{
-            //    Console.WriteLine(word);
+            //    Console.WriteLine(category);
             //}
 
             #endregion
@@ -210,14 +181,114 @@ namespace ConsoleApp1
 
             #region question13
 
-            //string[] Arr = { "Mike", "Alice", "Bird", "Tiger", "Fish", "Apple" };
+            //int[] setA = { 1, 3, 5, 7, 9, 11, 13 };
+            //int[] setB = { 3, 6, 9, 12, 15, 13 };
 
-            //var result = Arr.Where(word => word.Length > 1 && word[1] == 'i')
-            //                .Reverse();
+            //var result = setA.Except(setB);
 
-            //foreach (var word in result)
+            //foreach (var id in result)
             //{
-            //    Console.WriteLine(word);
+            //    Console.WriteLine(id);
+            //}
+
+            #endregion
+
+
+            #region question14
+
+            //string[] list1 = { "Germany", "France", "UK", "Spain" };
+            //string[] list2 = { "france", "SPAIN", "Italy" };
+
+            //var result = list1.Except(list2, StringComparer.OrdinalIgnoreCase);
+
+            //foreach (var country in result)
+            //{
+            //    Console.WriteLine(country);
+            //}
+
+            #endregion
+
+
+            #region question15
+
+            //var productDictionary = products.ToDictionary(p => p.ProductID);
+
+            //if (productDictionary.TryGetValue(18, out var product))
+            //{
+            //    Console.WriteLine(product);
+            //}
+
+            #endregion
+
+
+            #region question16
+
+            //var result = products.First(p => p.UnitPrice > 50);
+
+            //Console.WriteLine(result);
+
+            #endregion
+
+
+            #region question17
+
+            //var result = products.FirstOrDefault(p => p.UnitPrice > 500);
+
+            //Console.WriteLine(result);
+
+            #endregion
+
+
+            #region question18
+
+            //var result = Enumerable.Range(1, 10)
+            //                       .Select(i => 7 * i);
+
+            //foreach (var number in result)
+            //{
+            //    Console.WriteLine(number);
+            //}
+
+            #endregion
+
+
+            #region question19
+
+            //var result = Enumerable.Range(1, 30)
+            //                       .Where(n => n % 2 == 0);
+
+            //foreach (var number in result)
+            //{
+            //    Console.WriteLine(number);
+            //}
+
+            #endregion
+
+
+            #region question20
+
+            //var productNames = products.Take(3).Select(p => p.ProductName);
+            //var companyNames = customers.Take(3).Select(c => c.CompanyName);
+
+            //var result = productNames.Concat(companyNames);
+
+            //foreach (var name in result)
+            //{
+            //    Console.WriteLine(name);
+            //}
+
+            #endregion
+
+
+            #region question21
+
+            //var result = products.Take(customers.Count())
+            //                     .Zip(customers,
+            //                          (p, c) => $"{p.ProductName} sold to {c.CompanyName}");
+
+            //foreach (var item in result)
+            //{
+            //    Console.WriteLine(item);
             //}
 
             #endregion
